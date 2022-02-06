@@ -10,6 +10,8 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		projectName := ctx.Project()
+		stackName := ctx.Stack()
+		environment := stackName
 
 		cfg := config.New(ctx, "")
 		tenant := cfg.Require("tenant")
@@ -18,17 +20,19 @@ func main() {
 		size := cfg.Require("size")
 		market := cfg.Require("market")
 
-		// ctx.Export("info", Tenant{
-		// 	ProjectName: pulumi.String(projectName),
-		// 	TenantID:    pulumi.String(tenantID),
-		// })
-
 		ctx.Export("projectName", pulumi.String(projectName))
+		ctx.Export("stackName", pulumi.String(stackName))
+		ctx.Export("environment", pulumi.String(environment))
 		ctx.Export("tenant", pulumi.String(tenant))
 		ctx.Export("tenantId", pulumi.String(tenantID))
 		ctx.Export("size", pulumi.String(size))
 		ctx.Export("market", pulumi.String(market))
 		ctx.Export("region", pulumi.String(region))
+
+		// ctx.Export("info", Tenant{
+		// 	ProjectName: pulumi.String(projectName),
+		// 	TenantID:    pulumi.String(tenantID),
+		// })
 
 		return nil
 	})
@@ -36,6 +40,8 @@ func main() {
 
 type Tenant struct {
 	ProjectName pulumi.StringInput `pulumi:"projectName"`
+	StackName   pulumi.StringInput `pulumi:"stackName"`
+	Environment pulumi.StringInput `pulumi:"environment"`
 	Tenant      pulumi.StringInput `pulumi:"tenant"`
 	TenantID    pulumi.StringInput `pulumi:"tenantId"`
 	Name        pulumi.StringInput `pulumi:"name"`
@@ -50,6 +56,8 @@ func (Tenant) ElementType() reflect.Type {
 
 type TenantNested struct {
 	ProjectName string `pulumi:"projectName"`
+	StackName   string `pulumi:"stackName"`
+	Environment string `pulumi:"environment"`
 	Tenant      string `pulumi:"tenant"`
 	TenantID    string `pulumi:"tenantId"`
 	Name        string `pulumi:"name"`
