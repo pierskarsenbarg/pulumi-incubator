@@ -19,7 +19,6 @@ The goal with test **A** is to have a multiple tenants with setup shared infrast
 * The shared infra structure is project and has multiple stacks the output references to use in other stacks
 * The tenant is a project with multiple stacks with one main called `meta` that the child stack uses
 
-
 ## Option B
 
 *TBD, but the idea is it the same as **A** but it uses more component(s) instead of many stacks, try to reuse the code.*
@@ -27,7 +26,6 @@ The goal with test **A** is to have a multiple tenants with setup shared infrast
 ## Option C
 
 *TBD*
-
 
 # Resources
 
