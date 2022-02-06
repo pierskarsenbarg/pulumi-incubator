@@ -1,0 +1,17 @@
+name: tenant-af5042
+runtime: go
+description: Tenant af5042
+template:
+  config:
+    tenant:
+      description: Tenant
+    tenantId:
+      description: Tenant Id
+    name:
+      description: Friendly name of the tenant
+    size:
+      description: Size of the tenat
+    region:
+      description: Region
+    market:
+      description: Market where tenant operate in

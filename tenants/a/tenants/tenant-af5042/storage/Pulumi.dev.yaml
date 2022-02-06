@@ -1,0 +1,3 @@
+config:
+  aws:region: eu-central-1
+  tenant-af5042-storage:tenantStack: fiveten/tenant-af5042/dev

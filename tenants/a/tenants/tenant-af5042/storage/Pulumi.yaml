@@ -1,0 +1,10 @@
+name: tenant-af5042-storage
+runtime: go
+description: Tenant af5042 Storage
+template:
+  config:
+    aws:region:
+      description: The AWS region to deploy into
+      default: eu-central-1
+    tenantStack:
+      description: The stack to reference tenant properties from
