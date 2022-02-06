@@ -1,4 +1,4 @@
-module storage
+module meta
 
 go 1.14
 
