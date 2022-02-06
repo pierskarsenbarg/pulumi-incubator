@@ -1,14 +1,32 @@
 # tenants
 
+The goal for the *tenants* incubator is the design a way to get infrastructure for multi tenant that also can use shared infrastructure through. *Multi-Tenant through the IaC deployemt pipeline*
+
 ## examples
 
-|| name || guid || sha256 || hash ||
-|| tenant-a || 4783eb5d-956e-4b58-a214-790fe7ef61ba || 71746f6c5d1c812640283718d5af5042 || af5042 ||
-|| tenant-b || a79a8c37-9d0b-4b1d-a051-ba339eea6f21 || dc634b2c7ade59c80fa0df5771f09faf || f09faf ||
-|| tenant-c || a869f326-7d83-4d1f-8af1-aef8fb11e57f || df3ebcc2b38304a9f663cefa49430e00 || 430e00 ||
+| name | guid | sha256 | hash |
+| ---- | ---- | ------ | ---- |
+| tenant-a | 4783eb5d-956e-4b58-a214-790fe7ef61ba | 71746f6c5d1c812640283718d5af5042 | af5042 |
+| tenant-b | a79a8c37-9d0b-4b1d-a051-ba339eea6f21 | dc634b2c7ade59c80fa0df5771f09faf | f09faf |
+| tenant-c | a869f326-7d83-4d1f-8af1-aef8fb11e57f | df3ebcc2b38304a9f663cefa49430e00 | 430e00 |
 
-## A
+# options
 
+## Option A
+
+The goal with test **A** is to have a multiple tenants with setup shared infrastructure.
+
+* The shared infra structure is project and has multiple stacks the output references to use in other stacks
+* The tenant is a project with multiple stacks with one main called `meta` that the child stack uses
+
+
+## Option B
+
+*TBD, but the idea is it the same as **A** but it uses more component(s) instead of many stacks, try to reuse the code.*
+
+## Option C
+
+*TBD*
 
 
 # Resources
