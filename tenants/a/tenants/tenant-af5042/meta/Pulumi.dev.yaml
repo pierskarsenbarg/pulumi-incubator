@@ -1,0 +1,7 @@
+config:
+  tenant-af5042-meta:tenant: af5042
+  tenant-af5042-meta:tenantId: 4783eb5d-956e-4b58-a214-790fe7ef61ba
+  tenant-af5042-meta:name: Tenant a
+  tenant-af5042-meta:size: small
+  tenant-af5042-meta:region: eu-central-1
+  tenant-af5042-meta:market: norway

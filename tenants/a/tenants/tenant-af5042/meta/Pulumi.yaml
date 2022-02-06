@@ -1,6 +1,6 @@
-name: tenant-af5042
+name: tenant-af5042-meta
 runtime: go
-description: Tenant af5042
+description: Tenant af5042 meta
 template:
   config:
     tenant:
