@@ -1,0 +1,18 @@
+name: tenant-shared-network
+runtime: go
+description: Tenant shared network
+template:
+  config:
+    aws:region:
+      description: The AWS region to deploy into
+      default: eu-central-1
+    name:
+      description: VPC Name
+    region:
+      description: Region
+    cidrBlockVpc:
+      description: CIDR Block for VPC
+    cidrBlockPublic:
+      description: CIDR Block for public subnet
+    cidrBlockPrivate:
+      description: CIDR Block for private subnet

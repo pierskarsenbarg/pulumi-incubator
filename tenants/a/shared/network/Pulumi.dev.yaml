@@ -1,0 +1,7 @@
+config:
+  aws:region: eu-central-1
+  tenant-shared-network:cidrBlockPrivate: 10.240.102.0/24
+  tenant-shared-network:cidrBlockPublic: 10.240.101.0/24
+  tenant-shared-network:cidrBlockVpc: 10.240.0.0/16
+  tenant-shared-network:name: fiveten-tenant
+  tenant-shared-network:region: eu-central-1
