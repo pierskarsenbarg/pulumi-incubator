@@ -1,0 +1,10 @@
+name: tenant-af5042-compute
+runtime: go
+description: Tenant af5042 compute resources
+template:
+  config:
+    aws:region:
+      description: The AWS region to deploy into
+      default: eu-central-1
+    sharedNetworkStack:
+      description: The shared network stack
