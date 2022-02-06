@@ -151,6 +151,7 @@ func main() {
 					},
 				},
 			},
+			VpcId: vpc.ID(),
 		})
 		if err != nil {
 			return err
