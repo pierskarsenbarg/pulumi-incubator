@@ -1,3 +1,9 @@
 config:
   aws:region: eu-central-1
+  tenant-af5042-compute:tenantStack: fiveten/tenant-af5042-meta/dev
   tenant-af5042-compute:sharedNetworkStack: fiveten/tenant-shared-network/dev
+  tenant-af5042-compute:instanceType: t3.micro
+  tenant-af5042-compute:availabilityZone: eu-central-1a
+  tenant-af5042-compute:networkSubnetId: eu-central-1a
+  tenant-af5042-compute:ami: ami-0d527b8c289b4af7f
+  tenant-af5042-compute:keyName: key-0ca75efa02556e1f0

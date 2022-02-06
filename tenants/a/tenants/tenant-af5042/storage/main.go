@@ -43,9 +43,6 @@ func main() {
 			return bucket.ID(), nil
 
 		})
-		if err != nil {
-			return err
-		}
 
 		ctx.Export("bucketName", bucket)
 

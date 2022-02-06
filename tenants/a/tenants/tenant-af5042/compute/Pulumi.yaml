@@ -6,5 +6,18 @@ template:
     aws:region:
       description: The AWS region to deploy into
       default: eu-central-1
+    tenantStack:
+      description: The stack to reference tenant properties from
     sharedNetworkStack:
       description: The shared network stack
+    sharedNetworkStack:
+      description: The shared network stack
+    instanceType:
+      description: Instance type
+      default: t3.micro
+    networkSubnetId:
+      description: The shared network subnet id
+    ami:
+      description: EC2 AMI
+    keyName:
+      description: EC2 Key Name

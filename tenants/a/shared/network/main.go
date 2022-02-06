@@ -123,13 +123,25 @@ func main() {
 			SubnetId:     privateSubnet.ID(),
 		})
 
-		securityGroup, err := ec2.NewSecurityGroup(ctx, fmt.Sprintf("%s-allow-tls", vpcName), &ec2.SecurityGroupArgs{
+		securityGroup, err := ec2.NewSecurityGroup(ctx, fmt.Sprintf("%s-allow", vpcName), &ec2.SecurityGroupArgs{
 			Ingress: ec2.SecurityGroupIngressArray{
 				ec2.SecurityGroupIngressArgs{
 					Protocol:    pulumi.String("tcp"),
 					FromPort:    pulumi.Int(443),
 					ToPort:      pulumi.Int(443),
 					Description: pulumi.String("TLS from VPC"),
+					CidrBlocks: pulumi.StringArray{
+						pulumi.String("0.0.0.0/0"),
+					},
+					Ipv6CidrBlocks: pulumi.StringArray{
+						pulumi.String("::/0"),
+					},
+				},
+				ec2.SecurityGroupIngressArgs{
+					Protocol:    pulumi.String("tcp"),
+					FromPort:    pulumi.Int(22),
+					ToPort:      pulumi.Int(22),
+					Description: pulumi.String("SSH"),
 					CidrBlocks: pulumi.StringArray{
 						pulumi.String("0.0.0.0/0"),
 					},
@@ -158,7 +170,11 @@ func main() {
 		}
 
 		ctx.Export("vpcId", vpc.ID())
+		//ctx.Export("privateSubnetZoneA", privateSubnet.ID())
+		//ctx.Export("privateSubnetZoneB", privateSubnet.ID())
+		ctx.Export("privateSubnetZoneC", privateSubnet.ID())
 		ctx.Export("securityGroupArn", securityGroup.Arn)
+		ctx.Export("securityGroupId", securityGroup.ID())
 
 		return nil
 	})

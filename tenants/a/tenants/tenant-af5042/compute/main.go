@@ -12,8 +12,22 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		cfg := config.New(ctx, "")
 
+		tenantStackID := cfg.Require("tenantStack")
+		fmt.Println(tenantStackID)
+
+		// tenantStack := pulumi.StackReference(tenantStackID)
+		tenantStack, err := pulumi.NewStackReference(ctx, tenantStackID, nil)
+		if err != nil {
+			fmt.Println("error to get stack")
+			panic(err)
+		}
+
+		tenant := tenantStack.GetStringOutput(pulumi.String("tenant"))
+		environment := tenantStack.GetStringOutput(pulumi.String("environment"))
+
 		instanceType := cfg.Require("instanceType")
-		availabilityZone := cfg.Require("availabilityZone")
+		amiId := cfg.Require("ami")
+		keyName := cfg.Require("keyName")
 
 		sharedNetworkStackID := cfg.Require("sharedNetworkStack")
 		fmt.Println(sharedNetworkStackID)
@@ -24,26 +38,34 @@ func main() {
 			panic(err)
 		}
 
-		networkVpcId := sharedNetworkStack.GetStringOutput(pulumi.String("vpcId"))
+		networkPrivateSubnetZoneC := sharedNetworkStack.GetStringOutput(pulumi.String("privateSubnetZoneC"))
 		networkSecurityGroupArn := sharedNetworkStack.GetStringOutput(pulumi.String("securityGroupArn"))
 
-		computeTestArn := pulumi.All(networkVpcId, networkSecurityGroupArn, availabilityZone, instanceType).ApplyT(func(args []interface{}) (pulumi.IDOutput, pulumi.StringOutput, error) {
+		computeTestId := pulumi.All(tenant, environment, instanceType, networkPrivateSubnetZoneC, networkSecurityGroupArn, amiId, keyName).ApplyT(func(args []interface{}) (pulumi.IDOutput, error) {
 			hostName := fmt.Sprintf("tenant-%s-%v-test-host-1", args[0], args[1])
-			host, err := ec2.NewDedicatedHost(ctx, hostName, &ec2.DedicatedHostArgs{
-				AvailabilityZone: pulumi.String(availabilityZone),
-				InstanceType:     pulumi.String(instanceType),
+
+			server, err := ec2.NewInstance(ctx, hostName, &ec2.InstanceArgs{
+				InstanceType: pulumi.String(args[2].(string)),
+				SubnetId:     pulumi.String(args[3].(string)),
+				//VpcSecurityGroupIds: pulumi.StringArray{pulumi.String(args[4].(string))},
+				Ami: pulumi.String(args[5].(string)),
+				//KeyName: pulumi.String(args[6].(string)),
+				//DisableApiTermination: pulumi.Bool(true),
+				Tags: pulumi.StringMap{
+					"Name": pulumi.String(hostName),
+				},
 			})
 			if err != nil {
-				return pulumi.IDOutput{}, pulumi.StringOutput{}, err
+				return pulumi.IDOutput{}, err
 			}
-			return host.ID(), host.Arn, nil
 
+			return server.ID(), nil
 		})
 		if err != nil {
 			return err
 		}
 
-		ctx.Export("computeTestArn", computeTestArn)
+		ctx.Export("computeTestId", computeTestId)
 
 		return nil
 	})
